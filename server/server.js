@@ -4,7 +4,7 @@ const morgan = require("morgan");
 const dotenv = require("dotenv").config();
 const colors = require("colors");
 const connectDb = require("./config/connectDb");
-
+const router = require("./routes/userRoutes");
 const app = express();
 
 connectDb();
@@ -15,6 +15,8 @@ app.use(express.json());
 app.use(cors());
 
 // routes
+app.use("/", router);
+
 app.get("/", (req, res) => {
   res.send("Hello World");
 });
