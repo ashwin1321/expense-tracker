@@ -1,0 +1,19 @@
+.register-page {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 86.6vh;
+  /* background-color: #202222; */
+}
+
+.link {
+  text-decoration: none;
+}
+
+.abc,
+.txt {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
