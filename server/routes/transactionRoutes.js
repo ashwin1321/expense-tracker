@@ -5,7 +5,7 @@ const router = express.Router();
 
 //ROUTES
 // GET
-router.get("/", getTransactions)
+router.post("/get-transaction", getTransactions)
 
 // POST
 router.post("/add-transaction", addTransaction)
