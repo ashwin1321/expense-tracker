@@ -5,6 +5,7 @@ const dotenv = require("dotenv").config();
 const colors = require("colors");
 const connectDb = require("./config/connectDb");
 const router = require("./routes/userRoutes");
+const transactionRouter = require("./routes/transactionRoutes");
 const app = express();
 
 connectDb();
@@ -14,8 +15,12 @@ app.use(morgan("dev"));
 app.use(express.json());
 app.use(cors());
 
-// routes
+// user routes
 app.use("/api/v1/users", router);
+
+// transaction routes
+app.use("/api/v1/transactions", transactionRouter);
+
 
 
 // listen
