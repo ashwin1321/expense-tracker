@@ -15,11 +15,8 @@ app.use(express.json());
 app.use(cors());
 
 // routes
-app.use("/", router);
+app.use("/api/v1/users", router);
 
-app.get("/", (req, res) => {
-  res.send("Hello World");
-});
 
 // listen
 app.listen(5000, () => {

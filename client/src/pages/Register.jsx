@@ -1,17 +1,36 @@
-import React from "react";
+import React, { useState } from "react";
 import Layout from "../components/layout/Layout";
-import { Form, Input } from "antd";
-import { Link } from "react-router-dom";
+import { Form, Input, message } from "antd";
+import { Link, useNavigate } from "react-router-dom";
+import axios from "axios";
+import Spinner from "../components/layout/Spinner";
 
 const Register = () => {
-  const handleSubmit = (values) => {
-    console.log(values);
+  const navigate = useNavigate();
+
+  const [loading, setLoading] = useState(false);
+
+  const handleSubmit = async (values) => {
+    try {
+      setLoading(true);
+      // console.log(`object`, values);
+      await axios
+        .post("http://localhost:5000/api/v1/users/register", values)
+        .then(() => {
+          message.success("register successfully");
+          setLoading(false);
+          navigate("/login");
+        });
+    } catch (error) {
+      message.error(error);
+    }
   };
 
   return (
     <>
       <Layout>
         <div className=" register-page ">
+          {loading && <Spinner />}
           <Form layout="vertical" onFinish={handleSubmit}>
             {" "}
             {/* antd doesn't have onSubmit */}

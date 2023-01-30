@@ -3,17 +3,20 @@ const userModel = require("../models/userModel");
 // Login
 const loginController = async (req, res) => {
   try {
-    const { email, password } = req.body;
-    const user = await userModel.findOne({ email, password });
+    const { name, password } = req.body;
+    const user = await userModel.findOne({ name, password });
 
     if (!user) {
-      res.status(404).send("User Not Founf");
-      return;
+      return res.status(404).send("User doesnt't exists");
     }
-    res.status(200).json({
-      success: true,
-      user,
-    });
+    else {
+      res.status(200).json({
+        success: true,
+        message: "logged in ",
+        user
+
+      });
+    }
   } catch (error) {
     res.status(400).json({
       success: false,
@@ -26,21 +29,13 @@ const loginController = async (req, res) => {
 const registerController = async (req, res) => {
   try {
     const newUser = new userModel(req.body);
-    const user = await userModel.findOne(newUser.email);
-
-    if (user) {
-      res.status(404).json({
-        success: false,
-        msg: "user exixts",
-      });
-      return;
-    }
-
     await newUser.save();
     res.status(201).json({
       success: true,
-      newUser,
+      message: "user register successfully",
+      newUser
     });
+
   } catch (error) {
     res.status(400).json({
       success: false,
@@ -50,7 +45,7 @@ const registerController = async (req, res) => {
 };
 
 const homeController = (req, res) => {
-  res.send("hellop");
+  res.send("hello");
 };
 
 module.exports = { loginController, registerController, homeController };
