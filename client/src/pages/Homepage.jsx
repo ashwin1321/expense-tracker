@@ -1,19 +1,25 @@
 import React, { useState, useEffect } from "react";
-import { Form, Modal, Input, Select, message, Table } from "antd";
+import { Form, Modal, Input, Select, message, Table, DatePicker } from "antd";
+import moment from "moment";
 import Layout from "../components/layout/Layout";
 import Spinner from "../components/layout/Spinner";
 import axios from "axios";
+const { RangePicker } = DatePicker;
 
 const Homepage = () => {
   const [showModal, setShowModal] = useState(false);
   const [loading, setLoading] = useState(false);
   const [alltransactions, setAllTransactions] = useState([]);
+  const [frequency, setFrequency] = useState("7");
+  const [customDate, setCustomDate] = useState([]);
+  const [type, setType] = useState("all");
 
   // table data
   const columns = [
     {
       title: "Date",
       dataIndex: "date",
+      render: (text) => <span>{moment(text).format("YYYY-MM-DD")}</span>,
     },
     {
       title: "Amount",
@@ -55,36 +61,66 @@ const Homepage = () => {
     }
   };
 
-  // fetching transactions
-  const getTransactions = async () => {
-    try {
-      const user = JSON.parse(localStorage.getItem("user"));
-      setLoading(true);
-
-      const res = await axios.post(
-        "http://localhost:5000/api/v1/transactions/get-transaction",
-        { userid: user._id }
-      );
-      setLoading(false);
-      setAllTransactions(res.data);
-      console.log(res.data);
-    } catch (error) {
-      setLoading(false);
-      console.log(error);
-      message.error(`failed to fetch transactions.`);
-    }
-  };
-
   // useEffect
   useEffect(() => {
+    // fetching transactions
+    const getTransactions = async () => {
+      try {
+        const user = JSON.parse(localStorage.getItem("user"));
+        setLoading(true);
+
+        const res = await axios.post(
+          "http://localhost:5000/api/v1/transactions/get-transaction",
+          { userid: user._id, frequency: frequency, customDate, type }
+        );
+        setLoading(false);
+        setAllTransactions(res.data);
+        console.log(res.data);
+      } catch (error) {
+        setLoading(false);
+        console.log(error);
+        message.error(`failed to fetch transactions.`);
+      }
+    };
+
     getTransactions();
-  }, []);
+  }, [frequency, customDate, type]);
 
   return (
     <Layout>
       {loading && <Spinner />}
       <div className="filters">
-        <div>range filters</div>
+        <div className="">
+          <h6>Filter</h6>
+          <Select value={frequency} onChange={(values) => setFrequency(values)}>
+            <Select.Option value="7">last 1 Week</Select.Option>
+            <Select.Option value="30">Last 1 month</Select.Option>
+            <Select.Option value="182">Last 6 months</Select.Option>
+            <Select.Option value="365">Last 1 year</Select.Option>
+            <Select.Option value="custom">Custom</Select.Option>
+          </Select>
+          {frequency === "custom" && (
+            <RangePicker
+              value={customDate}
+              onChange={(values) => setCustomDate(values)}
+            />
+          )}
+        </div>
+
+        <div className="">
+          <h6>Select Type</h6>
+          <Select value={type} onChange={(values) => setType(values)}>
+            <Select.Option value="all">All</Select.Option>
+            <Select.Option value="income">Income</Select.Option>
+            <Select.Option value="expense">Expense</Select.Option>
+          </Select>
+          {frequency === "custom" && (
+            <RangePicker
+              value={customDate}
+              onChange={(values) => setCustomDate(values)}
+            />
+          )}
+        </div>
 
         <div>
           <button
