@@ -1,9 +1,11 @@
 import React, { useState, useEffect } from "react";
 import { Form, Modal, Input, Select, message, Table, DatePicker } from "antd";
+import { UnorderedListOutlined, AreaChartOutlined } from "@ant-design/icons";
 import moment from "moment";
 import Layout from "../components/layout/Layout";
 import Spinner from "../components/layout/Spinner";
 import axios from "axios";
+import Analytics from "../components/Analytics";
 const { RangePicker } = DatePicker;
 
 const Homepage = () => {
@@ -13,6 +15,7 @@ const Homepage = () => {
   const [frequency, setFrequency] = useState("7");
   const [customDate, setCustomDate] = useState([]);
   const [type, setType] = useState("all");
+  const [viewData, setViewData] = useState("table");
 
   // table data
   const columns = [
@@ -90,7 +93,7 @@ const Homepage = () => {
     <Layout>
       {loading && <Spinner />}
       <div className="filters">
-        <div className="">
+        <div>
           <h6>Filter</h6>
           <Select value={frequency} onChange={(values) => setFrequency(values)}>
             <Select.Option value="7">last 1 Week</Select.Option>
@@ -122,6 +125,25 @@ const Homepage = () => {
           )}
         </div>
 
+        <div className="switch-icons">
+          <UnorderedListOutlined
+            className={`mx-2 ${
+              viewData === "table" ? "active-icon" : "inactive-icon"
+            }`}
+            onClick={() => {
+              setViewData("table");
+            }}
+          />
+          <AreaChartOutlined
+            className={`mx-2 ${
+              viewData === "analytics" ? "active-icon" : "inactive-icon"
+            }`}
+            onClick={() => {
+              setViewData("analytics");
+            }}
+          />
+        </div>
+
         <div>
           <button
             className="btn btn-primary"
@@ -133,7 +155,11 @@ const Homepage = () => {
       </div>
 
       <div className="content">
-        <Table columns={columns} dataSource={alltransactions} />
+        {viewData === "table" ? (
+          <Table columns={columns} dataSource={alltransactions} />
+        ) : (
+          <Analytics alltransactions={alltransactions} />
+        )}
       </div>
 
       <Modal
