@@ -12,6 +12,7 @@ import Layout from "../components/layout/Layout";
 import Spinner from "../components/layout/Spinner";
 import axios from "axios";
 import Analytics from "../components/Analytics";
+import Header from "../components/layout/Header";
 const { RangePicker } = DatePicker;
 
 const Homepage = () => {
@@ -145,7 +146,8 @@ const Homepage = () => {
   }, [frequency, customDate, type]);
 
   return (
-    <Layout>
+    <>
+      <Header />
       {loading && <Spinner />}
       <div className="filters">
         <div>
@@ -269,7 +271,7 @@ const Homepage = () => {
           </div>
         </Form>
       </Modal>
-    </Layout>
+    </>
   );
 };
 
