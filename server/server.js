@@ -6,6 +6,7 @@ const colors = require("colors");
 const connectDb = require("./config/connectDb");
 const router = require("./routes/userRoutes");
 const transactionRouter = require("./routes/transactionRoutes");
+const path = require("path");
 const app = express();
 
 connectDb();
@@ -22,6 +23,12 @@ app.use("/api/v1/users", router);
 app.use("/api/v1/transactions", transactionRouter);
 
 
+
+// static files
+app.use(express.static(path.join(__dirname, "../client/dist")));
+app.get('*', (req, res) => {
+  res.sendFile(path.join(__dirname, "../client/dist/index.html"))
+})
 
 // listen
 app.listen(5000, () => {

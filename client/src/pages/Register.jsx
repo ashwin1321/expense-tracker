@@ -14,24 +14,22 @@ const Register = () => {
     try {
       setLoading(true);
 
-      await axios
-        .post("http://localhost:5000/api/v1/users/register", values)
-        .then((res) => {
-          if (res.data.emailExists) {
-            message.error("user already exists, please change your email.");
-            setLoading(false);
-            return;
-          }
-          if (res.data.userExists) {
-            message.error("user already exists.");
-            setLoading(false);
-            return;
-          } else {
-            message.success("register successfully");
-            setLoading(false);
-            navigate("/login");
-          }
-        });
+      await axios.post("/api/v1/users/register", values).then((res) => {
+        if (res.data.emailExists) {
+          message.error("user already exists, please change your email.");
+          setLoading(false);
+          return;
+        }
+        if (res.data.userExists) {
+          message.error("user already exists.");
+          setLoading(false);
+          return;
+        } else {
+          message.success("register successfully");
+          setLoading(false);
+          navigate("/login");
+        }
+      });
     } catch (error) {
       message.error(`something went wrong \n`);
     }

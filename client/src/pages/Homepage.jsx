@@ -76,23 +76,20 @@ const Homepage = () => {
       setLoading(true);
 
       if (editable) {
-        await axios.post(
-          "http://localhost:5000/api/v1/transactions/update-transaction",
-          {
-            payload: {
-              ...values,
-              userId: user._id,
-            },
-            transactionId: editable._id,
-          }
-        );
+        await axios.post("/api/v1/transactions/update-transaction", {
+          payload: {
+            ...values,
+            userId: user._id,
+          },
+          transactionId: editable._id,
+        });
         setLoading(false);
         message.success("Transaction updated successfully");
       } else {
-        await axios.post(
-          "http://localhost:5000/api/v1/transactions/add-transaction",
-          { userid: user._id, ...values }
-        );
+        await axios.post("/api/v1/transactions/add-transaction", {
+          userid: user._id,
+          ...values,
+        });
         setLoading(false);
         message.success("Transaction added successfully");
       }
@@ -109,10 +106,9 @@ const Homepage = () => {
   const handleDelete = async (id) => {
     try {
       setLoading(true);
-      await axios.post(
-        "http://localhost:5000/api/v1/transactions/delete-transaction",
-        { transactionId: id }
-      );
+      await axios.post("/api/v1/transactions/delete-transaction", {
+        transactionId: id,
+      });
       setLoading(false);
       message.success("Transaction deleted successfully");
     } catch (error) {
@@ -130,10 +126,12 @@ const Homepage = () => {
         const user = JSON.parse(localStorage.getItem("user"));
         setLoading(true);
 
-        const res = await axios.post(
-          "http://localhost:5000/api/v1/transactions/get-transaction",
-          { userid: user._id, frequency: frequency, customDate, type }
-        );
+        const res = await axios.post("/api/v1/transactions/get-transaction", {
+          userid: user._id,
+          frequency: frequency,
+          customDate,
+          type,
+        });
         setLoading(false);
         setAllTransactions(res.data);
       } catch (error) {
