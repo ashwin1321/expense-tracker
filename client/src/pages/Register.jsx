@@ -49,10 +49,17 @@ const Register = () => {
       <Layout>
         <div className=" register-page ">
           {loading && <Spinner />}
-          <Form layout="vertical" onFinish={handleSubmit}>
+          <Form
+            layout="vertical"
+            onFinish={handleSubmit}
+            className="bg-secondary p-5"
+          >
             {" "}
             {/* antd doesn't have onSubmit */}
             <h1 className="txt">Please Register</h1>
+            <p className="text-warning txt">
+              Mobile ma nakholnu ni, malai CSS lekhna alxi lagyo.
+            </p>
             <Form.Item label="Username" name="name">
               <Input type="text" placeholder="Enter Username" required />
             </Form.Item>

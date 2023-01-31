@@ -40,10 +40,18 @@ const Login = () => {
   return (
     <>
       <Layout>
-        <div className=" register-page ">
+        <div className=" register-page  ">
           {loading && <Spinner />}
-          <Form layout="vertical" onFinish={handleSubmit}>
+          <Form
+            layout="vertical"
+            onFinish={handleSubmit}
+            className="bg-secondary  p-5"
+          >
             <h1 className="txt">Please Login</h1>
+            <p className="text-warning txt">
+              Mobile ma nakholnu ni, malai CSS lekhna alxi lagyo.
+            </p>
+            <br />
             <Form.Item label="Username" name="name">
               <Input type="text" placeholder="Enter Username" required />
             </Form.Item>
