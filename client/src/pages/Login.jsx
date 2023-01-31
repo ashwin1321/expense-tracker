@@ -61,7 +61,7 @@ const Login = () => {
               <Input type="password" placeholder="Enter Password" required />
             </Form.Item>
             <div className=" abc d-flex justify-content-between">
-              <Link to="/register" className="link">
+              <Link to="/register" className="text-warning">
                 Not a user? click here to register.
               </Link>
               <br />

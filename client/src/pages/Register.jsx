@@ -70,7 +70,7 @@ const Register = () => {
               <Input type="password" placeholder="Enter Password" required />
             </Form.Item>
             <div className=" abc d-flex justify-content-between">
-              <Link to="/login" className="link">
+              <Link to="/login" className="text-warning">
                 Already Registered? Click here to Login.
               </Link>
               <br />
