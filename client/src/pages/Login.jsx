@@ -45,7 +45,7 @@ const Login = () => {
           <Form
             layout="vertical"
             onFinish={handleSubmit}
-            className="bg-secondary  p-5"
+            className="bg-secondary  p-5 rounded"
           >
             <h1 className="txt">Please Login</h1>
             <p className="text-warning txt">

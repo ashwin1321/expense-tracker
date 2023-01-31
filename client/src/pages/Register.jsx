@@ -47,12 +47,12 @@ const Register = () => {
   return (
     <>
       <Layout>
-        <div className=" register-page ">
+        <div className=" register-page mt-4 ">
           {loading && <Spinner />}
           <Form
             layout="vertical"
             onFinish={handleSubmit}
-            className="bg-secondary p-5"
+            className="bg-secondary p-5 rounded"
           >
             {" "}
             {/* antd doesn't have onSubmit */}
