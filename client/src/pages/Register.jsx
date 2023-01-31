@@ -71,7 +71,7 @@ const Register = () => {
             </Form.Item>
             <div className=" abc d-flex justify-content-between">
               <Link to="/login" className="link">
-                Already Register? Click here to Login.
+                Already Registered? Click here to Login.
               </Link>
               <br />
               <button className="btn btn-primary">Register</button>
