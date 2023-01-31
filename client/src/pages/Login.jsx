@@ -27,7 +27,7 @@ const Login = () => {
       navigate("/");
     } catch (error) {
       setLoading(false);
-      message.error(`something went wrong \n` + error);
+      message.error(`something went wrong \n`);
     }
   };
 

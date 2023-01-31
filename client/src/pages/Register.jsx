@@ -21,7 +21,7 @@ const Register = () => {
           navigate("/login");
         });
     } catch (error) {
-      message.error(error);
+      message.error(`something went wrong \n`);
     }
   };
 
