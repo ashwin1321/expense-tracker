@@ -29,9 +29,7 @@ const loginController = async (req, res) => {
 const registerController = async (req, res) => {
   try {
     const newUser = new userModel(req.body);
-
     const { name, email } = req.body;
-    console.log(name)
 
     const userfind = await userModel.findOne({ name });
     const emailfind = await userModel.findOne({ email });
@@ -49,9 +47,15 @@ const registerController = async (req, res) => {
     }
 
     if (userfind === null || emailfind === null) {
-      if (userfind !== null || emailfind !== null) {
+      if (userfind !== null) {
         res.json({
-          emailExists: "user already exists"
+          userExists: "user already exists"
+        })
+        return;
+      }
+      if (emailfind !== null) {
+        res.json({
+          emailExists: "email already exists"
         })
         return;
       }
@@ -63,21 +67,6 @@ const registerController = async (req, res) => {
       })
       return;
     }
-
-    // if (userfind.name === name) {
-    //   res.json({
-    //     userExists: "email already exists"
-    //   })
-    //   return;
-    // }
-
-    // if (userfind.name) {
-    //   res.json({
-    //     userExists: "user already exists"
-    //   })
-    //   return;
-    // }
-
 
   } catch (error) {
     res.json({

@@ -13,19 +13,31 @@ const Register = () => {
   const handleSubmit = async (values) => {
     try {
       setLoading(true);
+
       await axios
         .post("http://localhost:5000/api/v1/users/register", values)
-        .then(() => {
-          message.success("register successfully");
-          setLoading(false);
-          navigate("/login");
+        .then((res) => {
+          if (res.data.emailExists) {
+            message.error("user already exists, please change your email.");
+            setLoading(false);
+            return;
+          }
+          if (res.data.userExists) {
+            message.error("user already exists.");
+            setLoading(false);
+            return;
+          } else {
+            message.success("register successfully");
+            setLoading(false);
+            navigate("/login");
+          }
         });
     } catch (error) {
       message.error(`something went wrong \n`);
     }
   };
 
-  // prefvent user to go back to register page after register
+  // prevent user to go back to register page after register
   useEffect(() => {
     if (localStorage.getItem("user")) {
       navigate("/");
