@@ -17,7 +17,7 @@ const Header = () => {
     <>
       <nav className="navbar navbar-expand-lg navbar-dark bg-dark">
         <Link className="navbar-brand" to="/">
-          Expense<span className="text-success">Management</span>
+          Paisa<span className="text-success">Sakyo</span>
         </Link>
 
         <div className="collapse navbar-collapse" id="navbarTogglerDemo03">
