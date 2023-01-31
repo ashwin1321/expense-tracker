@@ -8,7 +8,6 @@ const Header = () => {
 
   useEffect(() => {
     const users = JSON.parse(localStorage.getItem("user"));
-    console.log(users);
     if (users) {
       setLoginUser(users);
     }
@@ -36,19 +35,6 @@ const Header = () => {
           <ul className="navbar-nav ms-auto mx-2">
             <li className="text-white my-1 mx-2">
               <p classNameName="nav-link  ">{loginUser && loginUser.name}</p>
-            </li>
-            <li>
-              <button
-                className="btn btn-primary my-2 my-sm-0"
-                onClick={() => {
-                  localStorage.removeItem("user");
-                  message.success("Logged out");
-
-                  navigate("/login");
-                }}
-              >
-                Logout
-              </button>
             </li>
           </ul>
         </div>

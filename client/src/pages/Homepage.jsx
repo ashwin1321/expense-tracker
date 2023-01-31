@@ -7,6 +7,7 @@ import {
   DeleteOutlined,
 } from "@ant-design/icons";
 
+import { useNavigate } from "react-router-dom";
 import moment from "moment";
 import Layout from "../components/layout/Layout";
 import Spinner from "../components/layout/Spinner";
@@ -16,6 +17,7 @@ import Header from "../components/layout/Header";
 const { RangePicker } = DatePicker;
 
 const Homepage = () => {
+  const navigate = useNavigate();
   const [showModal, setShowModal] = useState(false);
   const [loading, setLoading] = useState(false);
   const [alltransactions, setAllTransactions] = useState([]);
@@ -134,7 +136,6 @@ const Homepage = () => {
         );
         setLoading(false);
         setAllTransactions(res.data);
-        console.log(res.data);
       } catch (error) {
         setLoading(false);
         console.log(error);
@@ -207,6 +208,17 @@ const Homepage = () => {
             onClick={() => setShowModal(true)}
           >
             Add New
+          </button>
+
+          <button
+            className="btn btn-primary m-2 my-sm-0"
+            onClick={() => {
+              localStorage.removeItem("user");
+              message.success("Logged out");
+              navigate("/login");
+            }}
+          >
+            Logout
           </button>
         </div>
       </div>

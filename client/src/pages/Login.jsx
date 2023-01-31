@@ -19,7 +19,6 @@ const Login = () => {
       );
       setLoading(false);
       message.success("login success");
-      console.log(`object`, data);
       localStorage.setItem(
         "user",
         JSON.stringify({ ...data.user, password: "" })
