@@ -140,6 +140,7 @@ const Analytics = ({ alltransactions }) => {
                       percent={((amount / totalExpenseTurnover) * 100).toFixed(
                         0
                       )}
+                      status="exception"
                     />
                   </div>
                 </div>
