@@ -27,7 +27,9 @@ const Login = () => {
       navigate("/");
     } catch (error) {
       setLoading(false);
-      message.error(`something went wrong \n`);
+      message.error(
+        `something went wrong. check your credentials or register if you haven't. \n`
+      );
     }
   };
 
