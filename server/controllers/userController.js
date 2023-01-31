@@ -29,17 +29,60 @@ const loginController = async (req, res) => {
 const registerController = async (req, res) => {
   try {
     const newUser = new userModel(req.body);
-    await newUser.save();
-    res.status(201).json({
-      success: true,
-      message: "user register successfully",
-      newUser
-    });
+
+    const { name, email } = req.body;
+    console.log(name)
+
+    const userfind = await userModel.findOne({ name });
+    const emailfind = await userModel.findOne({ email });
+
+
+    if (!userfind && !emailfind) {
+      await newUser.save();
+      res.status(201).json({
+        success: true,
+        message: "user register successfully",
+        newUser
+      })
+
+      return;
+    }
+
+    if (userfind === null || emailfind === null) {
+      if (userfind !== null || emailfind !== null) {
+        res.json({
+          emailExists: "user already exists"
+        })
+        return;
+      }
+    }
+
+    if (userfind.name === name) {
+      res.json({
+        userExists: "user already exists"
+      })
+      return;
+    }
+
+    // if (userfind.name === name) {
+    //   res.json({
+    //     userExists: "email already exists"
+    //   })
+    //   return;
+    // }
+
+    // if (userfind.name) {
+    //   res.json({
+    //     userExists: "user already exists"
+    //   })
+    //   return;
+    // }
+
 
   } catch (error) {
-    res.status(400).json({
+    res.json({
       success: false,
-      error,
+      error: error.message,
     });
   }
 };
